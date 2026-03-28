@@ -1,0 +1,33 @@
+programa {
+  funcao inicio() {
+    cadeia nome_personagem, local, objeto, criatura, missao, obstaculo, licao_final
+    escreva("Fala! Tudo bem? \nSei que você veio aqui para escrever uma história e precisa da minha ajuda.")
+    escreva("\nEntão não vamos perder tempo e vamos direto para a criação dessa MASTERPIECE!")
+    escreva("\nPara iniciarmos precisarei de algumas informações iniciais e um pouco da sua criatividade, ok?")
+    escreva("\nVamos lá: me diga aí qual vai ser o nome do personagem dessa nossa história? ")
+    leia(nome_personagem)
+    escreva("\nOk, personagem ", nome_personagem, " salvo.")
+    escreva("\nAgora vamos para a ambientação. Digite onde vai rolar a história: ")
+    leia(local)
+    escreva("\nOk, local ", local, " salvo.")
+    escreva("\nCerto, escolha um objeto: ")
+    leia(objeto)
+    escreva("\nOk, objeto ", objeto, " salvo.")
+    escreva("\nUm ponto importante agora: o antagonista! Digite uma criatura: ")
+    leia(criatura)
+    escreva("\nOk, criatura ", criatura, " salva.")
+    escreva("\nEstamos quase terminando, falta pouco. Diz aí para mim qual vai ser a missão.\n")
+    leia(missao)
+    escreva("\nOk, missão ", missao, " salva.")
+    escreva("\nVamos lá, não desanima. A história está quase pronta! Me diz aí qual vai ser o obstáculo dessa odisséia? ")
+    leia(obstaculo)
+    escreva("\nOk, obstáculo ", obstaculo, " salvo.")
+    escreva("\nAgora, por fim, me diga aí uma super lição final para os leitores: ")
+    leia(licao_final)
+    escreva("\n\nOk, lição final ", licao_final, " salva.\n\n")
+    escreva(nome_personagem, " vivia uma vida tranquila em ", local, ", quando tropeçou em um ", objeto, ". Rapidamente, pegou o ", objeto, " e, de uma fumaça misteriosa, um ", criatura, " apareceu e disse: ")
+    escreva("\n— Você é o escolhido, o mundo depende de você! Agora, você precisa ", missao ," antes que seja tarde demais!")
+    escreva("\nSem hesitar, ", nome_personagem, " partiu em sua jornada, onde precisou enfrentar o terrível ", obstaculo, ". No final, conseguiu cumprir a missão, e percebeu que ", licao_final, ".")
+    escreva("\nAssim, voltou para ", local, ", mas não era mais o mesmo. Sua vida havia mudado para sempre.")
+  }
+}
