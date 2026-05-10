@@ -1,0 +1,44 @@
+programa
+{
+    funcao inicio()
+    {
+        cadeia entrada
+        inteiro numero
+        logico valido
+
+        escreva("Digite um número: ")
+        leia(entrada)
+
+        valido = eNumero(entrada)
+
+        se (valido)
+        {
+            numero = para_inteiro(entrada)
+            escreva("\nNúmero válido: ", numero)
+        }
+        senao
+        {
+            escreva("\nEntrada inválida!")
+        }
+    }
+
+    funcao logico eNumero(cadeia texto)
+    {
+        inteiro i
+
+        se (texto == "")
+        {
+            retorne falso
+        }
+
+        para (i = 0; i < comprimento(texto); i++)
+        {
+            se (texto[i] < '0' ou texto[i] > '9')
+            {
+                retorne falso
+            }
+        }
+
+        retorne verdadeiro
+    }
+}
