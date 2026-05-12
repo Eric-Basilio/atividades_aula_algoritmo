@@ -1,0 +1,40 @@
+programa {
+  inclua biblioteca Util --> u
+  inclua biblioteca Texto -->t
+  funcao inicio() {
+    inteiro soma = 0, random1, random2, random3, valor_carta =0, total_rodadas =0
+    cadeia escolha_carta
+
+    enquanto(soma < 21){
+    random1 = u.sorteia(1,10)
+    random2 = u.sorteia(1,10)
+    enquanto(random2 == random1 ou random2 == random3){
+      random2 =  u.sorteia(1,10)
+    }
+    random3 = u.sorteia(1,10)
+    enquanto(random2 == random1 ou random2 == random3){
+      random2 =  u.sorteia(1,10)
+    }
+    
+    escreva("A soma de pontos no momento é: ", soma)
+    escreva("\nEscolha uma das carta sorteadas: \n[A] ", random1, "\n[B] ",random2, "\n[C] ", random3, "\nEscolha: ")
+    leia(escolha_carta)
+    limpa()
+
+    se (t.caixa_baixa(escolha_carta)=="a"){
+      valor_carta = random1
+    }
+    senao se (t.caixa_baixa(escolha_carta)=="b"){
+      valor_carta = random2
+    }
+    senao se (t.caixa_baixa(escolha_carta)=="c"){
+      valor_carta = random3
+    }
+    soma = soma + valor_carta
+    total_rodadas = total_rodadas + 1
+
+    }
+    escreva("Fim de jogo! Você consegiu somar ", soma, " pontos em ", total_rodadas, " rodadas. \nDesafie alguém para ver quem tem mais sorte!")
+
+  }
+}
