@@ -1,0 +1,34 @@
+programa {
+  funcao inicio() {
+    cadeia lanche[3] , bebidas[3], outros[3], tamanho_bebidas[3], tamanho_outros[3]
+    real preco_lanche[3], preco_bebidas[3], preco_outros[3]
+
+    lanche[0] = "Hambúrguer"
+    lanche[1] = "Cheesebúrguer"
+    lanche[2] = "Bauru"
+    lanche[3] = "X-salada"
+
+    bebidas[0] = "Refrigerante"
+    bebidas[1] = "Refrigerante"
+    bebidas[2] = "Suco"
+    bebidas[3] = "Suco"
+
+    tamanho_bebidas[0] = "200"
+    tamanho_bebidas[1] = "500"
+    tamanho_bebidas[2] = "200"
+    tamanho_bebidas[3] = "500"
+
+    outros[0] = "Batatas Fritas"
+    outros[1] = "Batatas Fritas"
+    outros[2] = "Batatas Fritas"
+    outros[3] = "Salada"
+
+    tamanho_outros[0] = "200"
+    tamanho_outros[1] = "500"
+    tamanho_outros[2] = "200"
+    tamanho_outros[3] = "500"
+
+
+    
+  }
+}
