@@ -11,7 +11,7 @@ programa {
       escreva("Digite uma palavra para verificar se ela é um palíndromo: ")
       leia(palavra)
       tamanho = t.numero_caracteres(palavra)
-    para(inteiro i=tamanho; i>0; i--){
+    para(inteiro i=tamanho; i>0 e igual == verdadeiro; i--){
           primeira = t.obter_caracter(palavra, (tamanho-i))
           ultima = t.obter_caracter(palavra, (i-1))
           se(primeira == ultima){
