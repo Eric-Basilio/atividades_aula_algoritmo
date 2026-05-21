@@ -1,12 +1,20 @@
 programa {
+  inclua biblioteca Texto --> t
   funcao inicio() {
-    cadeia lanche[3] , bebidas[3], outros[3], tamanho_bebidas[3], tamanho_outros[3]
-    real preco_lanche[3], preco_bebidas[3], preco_outros[3]
+    cadeia lanche[4] , bebidas[4], outros[4], tamanho_bebidas[4], tamanho_outros[4], acumulador_escolha_lanche=""
+    real preco_lanche[4], preco_bebidas[4], preco_outros[4]
+    caracter opcao, escolha_lanche
+    inteiro contador_lanche=0
 
     lanche[0] = "Hambúrguer"
     lanche[1] = "Cheesebúrguer"
     lanche[2] = "Bauru"
     lanche[3] = "X-salada"
+
+    preco_lanche[1] = 6.80
+    preco_lanche[0] = 7.50
+    preco_lanche[2] = 5.40
+    preco_lanche[3] = 8.50
 
     bebidas[0] = "Refrigerante"
     bebidas[1] = "Refrigerante"
@@ -18,17 +26,89 @@ programa {
     tamanho_bebidas[2] = "200"
     tamanho_bebidas[3] = "500"
 
+    preco_bebidas[1] = 2.30
+    preco_bebidas[0] = 4.00
+    preco_bebidas[2] = 3.50
+    preco_bebidas[3] = 6.00
+
     outros[0] = "Batatas Fritas"
     outros[1] = "Batatas Fritas"
     outros[2] = "Batatas Fritas"
     outros[3] = "Salada"
 
-    tamanho_outros[0] = "200"
-    tamanho_outros[1] = "500"
-    tamanho_outros[2] = "200"
-    tamanho_outros[3] = "500"
+    tamanho_outros[0] = "Pequena"
+    tamanho_outros[1] = "Média"
+    tamanho_outros[2] = "Grande"
+    tamanho_outros[3] = "Média"
+
+    preco_outros[1] = 3.50
+    preco_outros[0] = 4.50
+    preco_outros[2] = 5.50
+    preco_outros[3] = 8.00
+
+    escreva("==========Cardápio========")
+    // Mostrando os lanches
+    escreva("\nLanches\n")
+    para(inteiro i=0; i<4; i++){
+      escreva(i, " - ", lanche[i])
+      escreva(" ------")
+      escreva(" R$:", preco_lanche[i], "\n")
+    }
+
+    // Mostrando as bebidas
+    escreva("\n\nBebidas\n")
+    para(inteiro i=0; i<4; i++){
+      escreva(i, " - ", bebidas[i])
+      escreva(" ", tamanho_bebidas[i], "ml")
+      escreva(" ------")
+      escreva(" R$:", preco_lanche[i], "\n")
+    }
+
+    // Mostrando os outros
+    escreva("\n\nOutros\n")
+    para(inteiro i=0; i<4; i++){
+      escreva(i, " - ", outros[i])
+      escreva(" ", tamanho_outros[i])
+      escreva(" ------")
+      escreva(" R$:", preco_outros[i], "\n")
+    }
+
+    escreva("O que deseja escolher primeiro?")
+    escreva("[1] Lanche\n[2] Bebida\n[3] Outros\nEscolha: ")
+    leia(opcao)
+
+    escolha(opcao){
+      caso 1:
+      limpa()
+      opcao = '0'
+      faca{
+        // mostra os lanches
+        escreva("\nLanches\n")
+        para(inteiro i=0; i<4; i++){
+        escreva(i, " - ", lanche[i])
+        escreva(" ------")
+        escreva(" R$:", preco_lanche[i], "\n")
+        }
+
+        // escolhe o lanche
+        escreva("Selecione  número do lanche: ")
+        leia(escolha_lanche)
+        acumulador_escolha_lanche = acumulador_escolha_lanche + escolha_lanche
+        contador_lanche = contador_lanche + 1
+
+        // mostra os lanches que a pessoa escolheu até agora
+        para(inteiro i=0; i<=contador_lanche; i++){
+          escreva("Até o momento você selecionou: ")
+
+        }
 
 
+        escreva("Deseja escolher mais algum lanche?")
+        escreva("[1] SIM\n[2] NÃO")
+        leia(opcao)
+      }enquanto(opcao != '2')
+      pare
+    }
     
   }
 }
