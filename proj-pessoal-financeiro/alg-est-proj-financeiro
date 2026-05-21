@@ -1,227 +1,267 @@
-programa 
-{
-	inclua biblioteca Util --> u
-	
-	inteiro opcao, continuar, excluir, confirma_exclusao, validacao = 0
-	
-	/* arrays que serão minha simulação de objetos.
-	Cada array é como se fosse uma propriedade do objeto. */
-	cadeia nome_despesa[3], data_despesa[3]
-	real valor_despesas[3]
-	
-	// contador que me ajudará a referenciar o indice do array
-	inteiro total_despesas = 0
+programa {
+  inclua biblioteca Texto --> t
+  inclua biblioteca Tipos
+  funcao inicio() {
+    cadeia lanche[4], acumulador_escolha_lanche="", lanche_escolhido
+    cadeia bebidas[4],  tamanho_bebidas[4], acumulador_escolha_bebidas="", bebidas_escolhido
+    cadeia outros[4], tamanho_outros[4], acumulador_escolha_outros="", outros_escolhido
+    real preco=0, total_geral
+    real preco_lanche[4], total_lanche = 0
+    real preco_bebidas[4], total_bebidas = 0
+    real preco_outros[4], total_outros = 0
+    caracter escolha_lanche
+    caracter escolha_bebidas
+    caracter escolha_outros
+    inteiro contador_lanche=0, opcao=0
+    inteiro contador_bebidas=0
+    inteiro contador_outros=0
 
-	funcao mostrarLista()
-	{
-		para(inteiro i = 0; i < total_despesas; i++)
-		{
-			escreva("\nItem ", i,".", "\nDescrição: ",nome_despesa[i],". \nValor: ",valor_despesas[i], ". \nData: ", data_despesa[i], ".\n")
-			escreva("-------------------------------------\n")
-		}
-	}
-	
-	funcao apagar()
-	{
-		para(inteiro i = excluir; i < total_despesas - 1; i++)
-		{
-			nome_despesa[i] = nome_despesa[i+1]
-			valor_despesas[i] = valor_despesas[i+1]
-			data_despesa[i] = data_despesa[i+1]
-		}
-		total_despesas = total_despesas - 1
-	}
-	
-	funcao inicio() 
-	{
-		opcao = 0 // Inicializando a opção para entrar no laço
-		
-		enquanto(opcao != 4)
-		{
-			se(opcao < 0 ou opcao > 4)
-			{
-				escreva("\nOpção inválida. \nEscolha de 1 a 4, de acordo com a necessidade.")
-				u.aguarde(3000)
-				limpa()
-			}
-			
-			// página do menu inicial
-			escreva("========== Menu Inicial ==========\n")
-			escreva("\nBem-vindo ao Controle Financeiro!")
-			escreva("\n\nEscolha uma das opções a baixo:")
-			escreva("\n[1] Incluir despesa.")
-			escreva("\n[2] Mostrar despesas.")
-			escreva("\n[3] Excluir despesa.")
-			escreva("\n[4] Sair.")
-			escreva("\nEscolha: ")
-			leia(opcao)
+    lanche[0] = "Hambúrguer"
+    lanche[1] = "Cheesebúrguer"
+    lanche[2] = "Bauru"
+    lanche[3] = "X-salada"
 
-			// possibilidades de escolhas do usuário
-			escolha(opcao)
-			{
-				caso 1:
-					continuar = 0
-					enquanto(continuar != 2)
-					{
-						limpa()
+    preco_lanche[0] = 6.80
+    preco_lanche[1] = 7.50
+    preco_lanche[2] = 5.40
+    preco_lanche[3] = 8.50
 
-						se(total_despesas < 3)
-						{
-							// coletando as informações do objeto
-							escreva("===== Painel de Cadastro de Despesas =====")
-							escreva("\nDigite o nome da despesa: ")
-							leia(nome_despesa[total_despesas])
-							escreva("Digite o valor total dessa despesa: ")
-							leia(valor_despesas[total_despesas])
-							escreva("Digite a data dessa despesa no formato dd/mm/aa: ")
-							leia(data_despesa[total_despesas])
+    bebidas[0] = "Refrigerante"
+    bebidas[1] = "Refrigerante"
+    bebidas[2] = "Suco"
+    bebidas[3] = "Suco"
 
-							// incrementanto o total de objetos. Isso que vai servir como índice
-							total_despesas = total_despesas + 1
-							escreva("\nItem cadastrado com sucesso!")
-							u.aguarde(1000)
-							limpa()
+    tamanho_bebidas[0] = "200"
+    tamanho_bebidas[1] = "500"
+    tamanho_bebidas[2] = "200"
+    tamanho_bebidas[3] = "500"
 
-							// apresentando dados cadastrados ao usuário
-							escreva("\nDespesas cadastradas até o momento: \n")
-							mostrarLista()              
-							
-							enquanto(validacao <= 0 ou validacao > 2)
-							{
-								limpa()
-								escreva("\nDespesas cadastradas até o momento: \n")
-								mostrarLista()             
-								escreva("\nDeseja adicionar mais uma despesa? \n[1] SIM \n[2] NÃO \nEscolha: ")
-								leia(validacao)
-							}
-							
-							se(validacao == 1)
-							{
-								continuar = 1
-								validacao = 0
-							}
-							senao 
-							{
-								continuar = 2
-								validacao = 0
-								limpa()
-							}
-						} 
-						senao 
-						{
-							escreva("Limite de despesas cadastradas atingido. \nVoltando à Tela Inicial.")
-							u.aguarde(3000)
-							limpa()
-							continuar = 2
-						}
-					}
-					pare
+    preco_bebidas[0] = 2.30
+    preco_bebidas[1] = 4.00
+    preco_bebidas[2] = 3.50
+    preco_bebidas[3] = 6.00
 
-				caso 2:
-					limpa()
-					// verificando se já possui alguma despesa cadastrada
-					se(total_despesas > 0)
-					{
-						escreva("===== Painel de Despesas Cadastradas =====\n")
-						continuar = 0
-						enquanto(continuar != 1)
-						{
-							mostrarLista()
-							escreva("\nDeseja voltar ao menu anterior?\n[1] SIM\n[2] NÃO")
-							escreva("\nEscolha: ")
-							leia(continuar)
-							limpa()
-						}
-					}
-					senao 
-					{
-						escreva("\nNenhuma despesa cadastrada ainda!")
-						u.aguarde(1000)
-					}
-					limpa()
-					pare
+    outros[0] = "Batatas Fritas"
+    outros[1] = "Batatas Fritas"
+    outros[2] = "Batatas Fritas"
+    outros[3] = "Salada"
 
-				caso 3:
-					limpa()
-					continuar = 0
-					se(total_despesas > 0)
-					{
-						enquanto(continuar != 2)
-						{
-							confirma_exclusao = 0
-							escreva("===== Painel de Exclusão de Despesas =====\n")
-							escreva("Digite o índice da despesa que deseja exluir ou digite ", total_despesas+1, " para voltar ao menu anterior \n")
-							mostrarLista()
-							escreva("\nEscolha: ")
-							leia(excluir)
-							
-							se(excluir >= 0 e excluir < total_despesas)
-							{
-								escreva("\nO intem de índice ", excluir, " será escluído.\n[1] SIM\n[2] NÃO\nConfirma? ")
-								leia(confirma_exclusao)
-								
-								escolha(confirma_exclusao)
-								{
-									caso 1:
-										apagar()
-										limpa()
-										escreva("\nItem de índice ", excluir, " excluído com sucesso.\n")
+    tamanho_outros[0] = "Pequena"
+    tamanho_outros[1] = "Média"
+    tamanho_outros[2] = "Grande"
+    tamanho_outros[3] = "Média"
 
-										se(total_despesas > 0)
-										{
-											escreva("===== Cadastro de despesas Atualizado =====")
-											mostrarLista()
-										} 
-										senao 
-										{
-											escreva("\nCadastro vazio.\nVoltando ao menu inicial.")
-											u.aguarde(5000)
-										}
-										
-										se(total_despesas > 0) 
-										{
-											escreva("\nDeseja excluir outro ítem?\n[1] SIM\n[2] NÃO\nEscolha: ")
-											leia(continuar)
-											limpa()
-										} 
-										senao 
-										{
-											continuar = 2
-										}
-										limpa()
-										pare
-										
-									caso 2:
-										limpa()
-										escreva("Voltando à tela anterior.\n")
-										u.aguarde(2000)
-										limpa()
-										pare
-								}
-							} 
-							senao se (excluir == total_despesas+1)
-							{
-								limpa()
-								continuar = 2
-							}
-							senao 
-							{
-								escreva("Digite um numero válido")
-								u.aguarde(1500)
-								limpa()
-							}
-						}
-					}
-					senao
-					{
-						limpa()
-						escreva("Nenhuma despesa cadastrada!")
-						u.aguarde(1000)
-						continuar = 2
-						limpa()
-					}
-					pare
-			}
-		}
-	}
+    preco_outros[0] = 3.50
+    preco_outros[1] = 4.50
+    preco_outros[2] = 5.50
+    preco_outros[3] = 8.00
+
+    escreva("==========Cardápio========")
+    // Mostrando os lanches
+    escreva("\nLanches\n")
+    para(inteiro i=0; i<4; i++){
+      escreva(i, " - ", lanche[i])
+      escreva(" ------")
+      escreva(" R$:", preco_lanche[i], "\n")
+    }
+
+    // Mostrando as bebidas
+    escreva("\nBebidas\n")
+    para(inteiro i=0; i<4; i++){
+      escreva(i, " - ", bebidas[i])
+      escreva(" ", tamanho_bebidas[i], "ml")
+      escreva(" ------")
+      escreva(" R$:", preco_bebidas[i], "\n")
+    }
+
+    // Mostrando os outros
+    escreva("\nOutros\n")
+    para(inteiro i=0; i<4; i++){
+      escreva(i, " - ", outros[i])
+      escreva(" ", tamanho_outros[i])
+      escreva(" ------")
+      escreva(" R$:", preco_outros[i], "\n")
+    }
+
+    faca{
+      escreva("\nO que deseja agora?")
+    escreva("\n[1] Lanche\n[2] Bebida\n[3] Outros\n[4] Finalizar a compra\nEscolha: ")
+    leia(opcao)
+
+    escolha(opcao){
+      caso 1:
+      faca{
+        limpa()
+        // mostra somente os lanches
+        escreva("\nLanches\n")
+        para(inteiro i=0; i<4; i++){
+        escreva(i, " - ", lanche[i])
+        escreva(" ------")
+        escreva(" R$:", preco_lanche[i], "\n")
+        }
+
+        // escolhe o lanche
+        escreva("Selecione  número do lanche: ")
+        leia(escolha_lanche)
+        acumulador_escolha_lanche = acumulador_escolha_lanche + escolha_lanche
+        contador_lanche = contador_lanche + 1
+
+        // mostra os lanches que a pessoa escolheu até agora
+        limpa()
+        escreva("Até o momento você selecionou: ")
+        para(inteiro i=contador_lanche; i>0; i--){
+          lanche_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_lanche, (contador_lanche - i)))
+          preco = preco_lanche[lanche_escolhido]
+          escreva("\n - ",lanche[lanche_escolhido])
+          escreva(" ------")
+          escreva(" R$:", preco_lanche[lanche_escolhido])
+        }
+        total_lanche = total_lanche + preco
+        escreva("\nTotal: R$",total_lanche)
+
+
+        escreva("\nDeseja escolher mais algum lanche?")
+        escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
+        leia(opcao)
+        limpa()
+      }enquanto(opcao != '2')
+      opcao =0
+      pare
+
+      caso 2:
+      faca{
+        limpa()
+        // mostra somente os bebidas
+        escreva("\nBebidas\n")
+        para(inteiro i=0; i<4; i++){
+        escreva(i, " - ", bebidas[i])
+        escreva(" ", tamanho_bebidas[i], "ml")
+        escreva(" ------")
+        escreva(" R$:", preco_bebidas[i], "\n")
+    }
+
+        // escolhe o bebidas
+        escreva("Selecione  número do bebidas: ")
+        leia(escolha_bebidas)
+        acumulador_escolha_bebidas = acumulador_escolha_bebidas + escolha_bebidas
+        contador_bebidas = contador_bebidas + 1
+
+        // mostra os bebidas que a pessoa escolheu até agora
+        limpa()
+        escreva("Até o momento você selecionou: ")
+        para(inteiro i=contador_bebidas; i>0; i--){
+          bebidas_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_bebidas, (contador_bebidas - i)))
+          preco = preco_bebidas[bebidas_escolhido]
+          escreva("\n - ",bebidas[bebidas_escolhido], " ", tamanho_bebidas[bebidas_escolhido],"ml")
+          escreva(" ------")
+          escreva(" R$:", preco_bebidas[bebidas_escolhido])
+        }
+        total_bebidas = total_bebidas + preco
+        escreva("\nTotal: R$",total_bebidas)
+
+
+        escreva("\nDeseja escolher mais algum bebidas?")
+        escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
+        leia(opcao)
+        limpa()
+      }enquanto(opcao != '2')
+      opcao =0
+      pare
+      caso 3:
+      faca{
+        limpa()
+        // mostra somente os outros
+        escreva("\noutros\n")
+        para(inteiro i=0; i<4; i++){
+        escreva(i, " - ", outros[i])
+        escreva(" ", tamanho_outros[i])
+        escreva(" ------")
+        escreva(" R$:", preco_outros[i], "\n")
+    }
+
+        // escolhe o outros
+        escreva("Selecione  número do outros: ")
+        leia(escolha_outros)
+        acumulador_escolha_outros = acumulador_escolha_outros + escolha_outros
+        contador_outros = contador_outros + 1
+
+        // mostra os outros que a pessoa escolheu até agora
+        limpa()
+        escreva("Até o momento você selecionou: ")
+        para(inteiro i=contador_outros; i>0; i--){
+          outros_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_outros, (contador_outros - i)))
+          preco = preco_outros[outros_escolhido]
+          escreva("\n - ",outros[outros_escolhido], " ", tamanho_outros[outros_escolhido])
+          escreva(" ------")
+          escreva(" R$:", preco_outros[outros_escolhido])
+        }
+        total_outros = total_outros + preco
+        escreva("\nTotal: R$",total_outros)
+
+
+        escreva("\nDeseja escolher mais algum outros?")
+        escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
+        leia(opcao)
+        limpa()
+      }enquanto(opcao != '2')
+      opcao =0
+      pare
+    }
+    
+    } enquanto(opcao !=4)
+    
+    total_geral = total_lanche + total_bebidas + total_outros
+    limpa()
+    escreva("=======Finalizando a Compra=======")
+
+    se(total_lanche>0){
+      escreva("\nLanches: ")
+        para(inteiro i=contador_lanche; i>0; i--){
+          lanche_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_lanche, (contador_lanche - i)))
+          preco = preco_lanche[lanche_escolhido]
+          escreva("\n - ",lanche[lanche_escolhido])
+          escreva(" ------")
+          escreva(" R$:", preco_lanche[lanche_escolhido])
+        }
+        escreva("\nTotal: R$",total_lanche)
+    } senao se(total_lanche<=0){
+      escreva("\nLanche: ")
+      escreva("\n0 itens desta categoria selecionados.")
+    }
+
+    se(total_bebidas>0){
+      escreva("\n\nBebidas: ")
+        para(inteiro i=contador_bebidas; i>0; i--){
+          bebidas_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_bebidas, (contador_bebidas - i)))
+          preco = preco_bebidas[bebidas_escolhido]
+          escreva("\n - ",bebidas[bebidas_escolhido], " ", tamanho_bebidas[bebidas_escolhido])
+          escreva(" ------")
+          escreva(" R$:", preco_bebidas[bebidas_escolhido])
+        }
+        escreva("\nTotal: R$",total_bebidas)
+    } senao se(total_bebidas<=0){
+      escreva("\nBebidas: ")
+      escreva("\n0 itens desta categoria selecionados.")
+    }
+
+    se(total_outros>0){
+      escreva("\n\nOutros: ")
+        para(inteiro i=contador_outros; i>0; i--){
+          outros_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_outros, (contador_outros - i)))
+          preco = preco_outros[outros_escolhido]
+          escreva("\n - ",outros[outros_escolhido], " ", tamanho_outros[outros_escolhido])
+          escreva(" ------")
+          escreva(" R$:", preco_outros[outros_escolhido])
+        }
+        escreva("\nTotal: R$",total_outros)
+    } senao se(total_outros<=0){
+      escreva("\nOutros: ")
+      escreva("\n0 itens desta categoria selecionados.")
+    }
+
+escreva("\n\nO total geral deu: R$", total_geral)
+    
+
+    
+  }
 }
