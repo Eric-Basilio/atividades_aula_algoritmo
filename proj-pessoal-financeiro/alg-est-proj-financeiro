@@ -1,21 +1,73 @@
 programa {
   inclua biblioteca Texto --> t
   inclua biblioteca Tipos
-  funcao inicio() {
-    cadeia lanche[4], acumulador_escolha_lanche="", lanche_escolhido
-    cadeia bebidas[4],  tamanho_bebidas[4], acumulador_escolha_bebidas="", bebidas_escolhido
-    cadeia outros[4], tamanho_outros[4], acumulador_escolha_outros="", outros_escolhido
-    real preco=0, total_geral
-    real preco_lanche[4], total_lanche = 0
-    real preco_bebidas[4], total_bebidas = 0
-    real preco_outros[4], total_outros = 0
-    caracter escolha_lanche
-    caracter escolha_bebidas
-    caracter escolha_outros
-    inteiro contador_lanche=0, opcao=0
-    inteiro contador_bebidas=0
-    inteiro contador_outros=0
 
+  cadeia lanche[4], acumulador_escolha_lanche="", lanche_escolhido
+  cadeia bebidas[4],  tamanho_bebidas[4], acumulador_escolha_bebidas="", bebidas_escolhido
+  cadeia outros[4], tamanho_outros[4], acumulador_escolha_outros="", outros_escolhido
+  real preco=0, total_geral
+  real preco_lanche[4], total_lanche = 0
+  real preco_bebidas[4], total_bebidas = 0
+  real preco_outros[4], total_outros = 0
+  caracter escolha_lanche
+  caracter escolha_bebidas
+  caracter escolha_outros
+  inteiro contador_lanche=0, opcao=0
+  inteiro contador_bebidas=0
+  inteiro contador_outros=0
+
+    funcao mostra_lanches(){
+      para(inteiro i=0; i<4; i++){
+      escreva(i, " - ", lanche[i])
+      escreva(" ------")
+      escreva(" R$:", preco_lanche[i], "\n")
+    }
+    }
+    funcao mostra_lanches_escolhidos(){
+      para(inteiro i=contador_lanche; i>0; i--){
+          lanche_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_lanche, (contador_lanche - i)))
+          preco = preco_lanche[lanche_escolhido]
+          escreva("\n - ",lanche[lanche_escolhido])
+          escreva(" ------")
+          escreva(" R$:", preco_lanche[lanche_escolhido])
+        }
+    }
+    funcao mostra_bebidas(){
+      para(inteiro i=0; i<4; i++){
+        escreva(i, " - ", bebidas[i])
+        escreva(" ", tamanho_bebidas[i], "ml")
+        escreva(" ------")
+        escreva(" R$:", preco_bebidas[i], "\n")
+    }
+    }
+    funcao mostra_bebidas_escolhidas(){
+      para(inteiro i=contador_bebidas; i>0; i--){
+          bebidas_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_bebidas, (contador_bebidas - i)))
+          preco = preco_bebidas[bebidas_escolhido]
+          escreva("\n - ",bebidas[bebidas_escolhido], " ", tamanho_bebidas[bebidas_escolhido],"ml")
+          escreva(" ------")
+          escreva(" R$:", preco_bebidas[bebidas_escolhido])
+        }
+    }
+    funcao mostra_outros(){
+      para(inteiro i=0; i<4; i++){
+      escreva(i, " - ", outros[i])
+      escreva(" ", tamanho_outros[i])
+      escreva(" ------")
+      escreva(" R$:", preco_outros[i], "\n")
+    }
+    }
+    funcao mostra_outros_escolhidos(){
+      para(inteiro i=contador_outros; i>0; i--){
+          outros_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_outros, (contador_outros - i)))
+          preco = preco_outros[outros_escolhido]
+          escreva("\n - ",outros[outros_escolhido], " ", tamanho_outros[outros_escolhido])
+          escreva(" ------")
+          escreva(" R$:", preco_outros[outros_escolhido])
+        }
+    }
+
+  funcao inicio() {
     lanche[0] = "Hambúrguer"
     lanche[1] = "Cheesebúrguer"
     lanche[2] = "Bauru"
@@ -59,46 +111,28 @@ programa {
     escreva("==========Cardápio========")
     // Mostrando os lanches
     escreva("\nLanches\n")
-    para(inteiro i=0; i<4; i++){
-      escreva(i, " - ", lanche[i])
-      escreva(" ------")
-      escreva(" R$:", preco_lanche[i], "\n")
-    }
+    mostra_lanches()
 
     // Mostrando as bebidas
     escreva("\nBebidas\n")
-    para(inteiro i=0; i<4; i++){
-      escreva(i, " - ", bebidas[i])
-      escreva(" ", tamanho_bebidas[i], "ml")
-      escreva(" ------")
-      escreva(" R$:", preco_bebidas[i], "\n")
-    }
+    mostra_bebidas()
 
     // Mostrando os outros
     escreva("\nOutros\n")
-    para(inteiro i=0; i<4; i++){
-      escreva(i, " - ", outros[i])
-      escreva(" ", tamanho_outros[i])
-      escreva(" ------")
-      escreva(" R$:", preco_outros[i], "\n")
-    }
+    mostra_outros()
 
     faca{
       escreva("\nO que deseja agora?")
-    escreva("\n[1] Lanche\n[2] Bebida\n[3] Outros\n[4] Finalizar a compra\nEscolha: ")
-    leia(opcao)
+      escreva("\n[1] Lanche\n[2] Bebida\n[3] Outros\n[4] Finalizar a compra\nEscolha: ")
+      leia(opcao)
 
-    escolha(opcao){
+      escolha(opcao){
       caso 1:
       faca{
         limpa()
         // mostra somente os lanches
-        escreva("\nLanches\n")
-        para(inteiro i=0; i<4; i++){
-        escreva(i, " - ", lanche[i])
-        escreva(" ------")
-        escreva(" R$:", preco_lanche[i], "\n")
-        }
+        escreva("\nLanches: \n")
+        mostra_lanches()
 
         // escolhe o lanche
         escreva("Selecione  número do lanche: ")
@@ -109,17 +143,9 @@ programa {
         // mostra os lanches que a pessoa escolheu até agora
         limpa()
         escreva("Até o momento você selecionou: ")
-        para(inteiro i=contador_lanche; i>0; i--){
-          lanche_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_lanche, (contador_lanche - i)))
-          preco = preco_lanche[lanche_escolhido]
-          escreva("\n - ",lanche[lanche_escolhido])
-          escreva(" ------")
-          escreva(" R$:", preco_lanche[lanche_escolhido])
-        }
+        mostra_lanches_escolhidos()
         total_lanche = total_lanche + preco
         escreva("\nTotal: R$",total_lanche)
-
-
         escreva("\nDeseja escolher mais algum lanche?")
         escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
         leia(opcao)
@@ -132,16 +158,11 @@ programa {
       faca{
         limpa()
         // mostra somente os bebidas
-        escreva("\nBebidas\n")
-        para(inteiro i=0; i<4; i++){
-        escreva(i, " - ", bebidas[i])
-        escreva(" ", tamanho_bebidas[i], "ml")
-        escreva(" ------")
-        escreva(" R$:", preco_bebidas[i], "\n")
-    }
+        escreva("\nBebidas: \n")
+        mostra_bebidas()
 
-        // escolhe o bebidas
-        escreva("Selecione  número do bebidas: ")
+        // escolhe as bebidas
+        escreva("Selecione  número da bebida: ")
         leia(escolha_bebidas)
         acumulador_escolha_bebidas = acumulador_escolha_bebidas + escolha_bebidas
         contador_bebidas = contador_bebidas + 1
@@ -149,17 +170,9 @@ programa {
         // mostra os bebidas que a pessoa escolheu até agora
         limpa()
         escreva("Até o momento você selecionou: ")
-        para(inteiro i=contador_bebidas; i>0; i--){
-          bebidas_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_bebidas, (contador_bebidas - i)))
-          preco = preco_bebidas[bebidas_escolhido]
-          escreva("\n - ",bebidas[bebidas_escolhido], " ", tamanho_bebidas[bebidas_escolhido],"ml")
-          escreva(" ------")
-          escreva(" R$:", preco_bebidas[bebidas_escolhido])
-        }
+        mostra_bebidas_escolhidas()
         total_bebidas = total_bebidas + preco
         escreva("\nTotal: R$",total_bebidas)
-
-
         escreva("\nDeseja escolher mais algum bebidas?")
         escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
         leia(opcao)
@@ -172,12 +185,7 @@ programa {
         limpa()
         // mostra somente os outros
         escreva("\noutros\n")
-        para(inteiro i=0; i<4; i++){
-        escreva(i, " - ", outros[i])
-        escreva(" ", tamanho_outros[i])
-        escreva(" ------")
-        escreva(" R$:", preco_outros[i], "\n")
-    }
+        mostra_outros()
 
         // escolhe o outros
         escreva("Selecione  número do outros: ")
@@ -188,17 +196,9 @@ programa {
         // mostra os outros que a pessoa escolheu até agora
         limpa()
         escreva("Até o momento você selecionou: ")
-        para(inteiro i=contador_outros; i>0; i--){
-          outros_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_outros, (contador_outros - i)))
-          preco = preco_outros[outros_escolhido]
-          escreva("\n - ",outros[outros_escolhido], " ", tamanho_outros[outros_escolhido])
-          escreva(" ------")
-          escreva(" R$:", preco_outros[outros_escolhido])
-        }
+        mostra_outros_escolhidos()
         total_outros = total_outros + preco
         escreva("\nTotal: R$",total_outros)
-
-
         escreva("\nDeseja escolher mais algum outros?")
         escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
         leia(opcao)
@@ -207,61 +207,34 @@ programa {
       opcao =0
       pare
     }
-    
     } enquanto(opcao !=4)
-    
     total_geral = total_lanche + total_bebidas + total_outros
     limpa()
     escreva("=======Finalizando a Compra=======")
-
     se(total_lanche>0){
       escreva("\nLanches: ")
-        para(inteiro i=contador_lanche; i>0; i--){
-          lanche_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_lanche, (contador_lanche - i)))
-          preco = preco_lanche[lanche_escolhido]
-          escreva("\n - ",lanche[lanche_escolhido])
-          escreva(" ------")
-          escreva(" R$:", preco_lanche[lanche_escolhido])
-        }
+        mostra_lanches_escolhidos()
         escreva("\nTotal: R$",total_lanche)
     } senao se(total_lanche<=0){
       escreva("\nLanche: ")
       escreva("\n0 itens desta categoria selecionados.")
     }
-
     se(total_bebidas>0){
       escreva("\n\nBebidas: ")
-        para(inteiro i=contador_bebidas; i>0; i--){
-          bebidas_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_bebidas, (contador_bebidas - i)))
-          preco = preco_bebidas[bebidas_escolhido]
-          escreva("\n - ",bebidas[bebidas_escolhido], " ", tamanho_bebidas[bebidas_escolhido])
-          escreva(" ------")
-          escreva(" R$:", preco_bebidas[bebidas_escolhido])
-        }
+        mostra_bebidas_escolhidas()
         escreva("\nTotal: R$",total_bebidas)
     } senao se(total_bebidas<=0){
       escreva("\nBebidas: ")
       escreva("\n0 itens desta categoria selecionados.")
     }
-
     se(total_outros>0){
       escreva("\n\nOutros: ")
-        para(inteiro i=contador_outros; i>0; i--){
-          outros_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_outros, (contador_outros - i)))
-          preco = preco_outros[outros_escolhido]
-          escreva("\n - ",outros[outros_escolhido], " ", tamanho_outros[outros_escolhido])
-          escreva(" ------")
-          escreva(" R$:", preco_outros[outros_escolhido])
-        }
+        mostra_outros_escolhidos()
         escreva("\nTotal: R$",total_outros)
     } senao se(total_outros<=0){
       escreva("\nOutros: ")
       escreva("\n0 itens desta categoria selecionados.")
     }
-
 escreva("\n\nO total geral deu: R$", total_geral)
-    
-
-    
   }
 }
