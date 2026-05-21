@@ -3,7 +3,7 @@ programa {
   inclua biblioteca Tipos
   funcao inicio() {
     cadeia lanche[4] , bebidas[4], outros[4], tamanho_bebidas[4], tamanho_outros[4], acumulador_escolha_lanche="", lanche_escolhido
-    real preco_lanche[4], preco_bebidas[4], preco_outros[4], valor_lanche=0
+    real preco_lanche[4], preco_bebidas[4], preco_outros[4], valor_lanche=0, total_lanche =0
     caracter escolha_lanche
     inteiro contador_lanche=0, opcao
 
@@ -103,10 +103,11 @@ programa {
         escreva("Até o momento você selecionou: ")
         para(inteiro i=contador_lanche; i>0; i--){
           lanche_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_lanche, (contador_lanche - i)))
-          valor_lanche = valor_lanche + preco_lanche[lanche_escolhido]
+          valor_lanche = preco_lanche[lanche_escolhido]
           escreva("\n - ",lanche[lanche_escolhido])
         }
-        escreva("\nTotal: R$",valor_lanche)
+        total_lanche = total_lanche + valor_lanche
+        escreva("\nTotal: R$",total_lanche)
 
 
         escreva("\nDeseja escolher mais algum lanche?")
