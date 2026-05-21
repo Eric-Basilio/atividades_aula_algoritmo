@@ -150,7 +150,7 @@ programa {
         escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
         leia(opcao)
         limpa()
-      }enquanto(opcao != '2')
+      }enquanto(opcao != 2)
       opcao =0
       pare
 
@@ -177,7 +177,7 @@ programa {
         escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
         leia(opcao)
         limpa()
-      }enquanto(opcao != '2')
+      }enquanto(opcao != 2)
       opcao =0
       pare
       caso 3:
@@ -203,7 +203,7 @@ programa {
         escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
         leia(opcao)
         limpa()
-      }enquanto(opcao != '2')
+      }enquanto(opcao != 2)
       opcao =0
       pare
     }
