@@ -87,7 +87,7 @@ funcao caso_pizza(inteiro i){
   funcao inicio() {
 
     inteiro rodada = 1, tamanho_ingredientes, tamanho_resposta
-    cadeia resposta
+    cadeia resposta =""
     logico teste falso
 
     escreva("Opções de ingredientes:\n")
@@ -106,6 +106,11 @@ funcao caso_pizza(inteiro i){
       se(rodada ==1){
         i = u.sorteia(1,18)
         caso_pizza(i)
+
+        escreva("\nA pizza sorteada foi: ", pizza, ".")
+        escreva("\nEscreva, separado por vírgulas e em ordem crescente, os ingredientes da ", pizza, ": ")
+        leia(resposta)
+
         tamanho_ingredientes = t.numero_caracteres(ingredientes)
         tamanho_resposta = t.numero_caracteres(resposta)
         //tamanho_ingredientes = Tipos.caracter_para_inteiro(t.numero_caracteres(ingredientes), 10)
@@ -119,12 +124,12 @@ funcao caso_pizza(inteiro i){
               teste = falso
             }
           }
-          se(teste == verdadeiro){
+          
+        } se(teste == verdadeiro){
             escreva("\nParabéns, você acertou!")
           } senao se (teste == falso){
             escreva("Poxa, que pena.")
           }
-        }
 
       }
     } enquanto(rodada <=18)
