@@ -1,6 +1,7 @@
 programa {
 
 inclua biblioteca Textos --> t
+inclua biblioteca Tipos
 
   cadeia pizza = "", ingredientes = ""
     inteiro i
@@ -83,6 +84,9 @@ funcao caso_pizza(inteiro i){
 }
 
   funcao inicio() {
+
+    inteiro rodada = 1, tamanho_ingredientes, tamanho_resposta
+    cadeia resposta
     
 
     escreva("Opções de ingredientes:\n")
@@ -97,8 +101,19 @@ funcao caso_pizza(inteiro i){
     escreva("[9]Ovos de dragão\n")
     escreva("[10]Bacon\n")
 
-    
+    faca{
+      se(rodada ==1){
+        i = u.sorteia(1,18)
+        caso_pizza(i)
 
-    
+        tamanho_ingredientes = Tipos.caracter_para_inteiro(t.numero_caracteres(ingredientes), 10)
+        tamanho_resposta = Tipos.caracter_para_inteiro(t.numero_caracteres(resposta), 10)
+
+        se(tamanho_resposta == tamanho_ingredientes){
+          
+        }
+
+      }
+    } enquanto(rodada <=18)
+    } 
   }
-}
