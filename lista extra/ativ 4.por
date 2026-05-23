@@ -1,6 +1,7 @@
 programa {
 
-inclua biblioteca Textos --> t
+inclua biblioteca Util --> u
+inclua biblioteca Texto --> t
 inclua biblioteca Tipos
 
   cadeia pizza = "", ingredientes = ""
@@ -87,7 +88,7 @@ funcao caso_pizza(inteiro i){
 
     inteiro rodada = 1, tamanho_ingredientes, tamanho_resposta
     cadeia resposta
-    
+    logico teste falso
 
     escreva("Opções de ingredientes:\n")
     escreva("[1]Molho de tomate\n")
@@ -105,12 +106,24 @@ funcao caso_pizza(inteiro i){
       se(rodada ==1){
         i = u.sorteia(1,18)
         caso_pizza(i)
-
-        tamanho_ingredientes = Tipos.caracter_para_inteiro(t.numero_caracteres(ingredientes), 10)
-        tamanho_resposta = Tipos.caracter_para_inteiro(t.numero_caracteres(resposta), 10)
+        tamanho_ingredientes = t.numero_caracteres(ingredientes)
+        tamanho_resposta = t.numero_caracteres(resposta)
+        //tamanho_ingredientes = Tipos.caracter_para_inteiro(t.numero_caracteres(ingredientes), 10)
+        //tamanho_resposta = Tipos.caracter_para_inteiro(t.numero_caracteres(resposta), 10)
 
         se(tamanho_resposta == tamanho_ingredientes){
-          
+          para(inteiro v =0; v < tamanho_ingredientes e teste == verdadeiro; v++){
+            se(t.obter_caracter(ingredientes, v) == t.obter_caracter(resposta, v)){
+                teste = verdadeiro
+            } senao {
+              teste = falso
+            }
+          }
+          se(teste == verdadeiro){
+            escreva("\nParabéns, você acertou!")
+          } senao se (teste == falso){
+            escreva("Poxa, que pena.")
+          }
         }
 
       }
