@@ -4,10 +4,11 @@ inclua biblioteca Util --> u
 inclua biblioteca Texto --> t
 inclua biblioteca Tipos
 
-  cadeia pizza = "", ingredientes = ""
-    inteiro i
+  cadeia pizza = "", ingredientes = "", resposta=""
+  inteiro i,  rodada = 1, acumulador_sorteados[17], v=0, s_temp, pontuacao =0, tamanho_ingredientes, tamanho_resposta
+  logico teste = falso, certo = verdadeiro
 
-funcao caso_pizza(inteiro i){
+	funcao caso_pizza(){
   escolha (i) {
       caso 1:
         pizza = "Pizza Dracarys"
@@ -84,54 +85,111 @@ funcao caso_pizza(inteiro i){
     }
 }
 
-  funcao inicio() {
-
-    inteiro rodada = 1, tamanho_ingredientes, tamanho_resposta
-    cadeia resposta =""
-    logico teste falso
-
-    escreva("Opções de ingredientes:\n")
-    escreva("[1]Molho de tomate\n")
-    escreva("[2]Queijo\n")
-    escreva("[3]Leite de cabra\n")
-    escreva("[4]Presunto de gambá\n")
-    escreva("[5]Chocolate do Coelhinho da Páscoa\n")
-    escreva("[6]Cogumelo do Mário\n")
-    escreva("[7]Pepperoni\n")
-    escreva("[8]Pimenta malagueta\n")
-    escreva("[9]Ovos de dragão\n")
-    escreva("[10]Bacon\n")
-
-    faca{
-      se(rodada ==1){
-        i = u.sorteia(1,18)
-        caso_pizza(i)
-
+	funcao pede(){
+        caso_pizza()
+		    acumulador_sorteados[(rodada-1)]= i
         escreva("\nA pizza sorteada foi: ", pizza, ".")
         escreva("\nEscreva, separado por vírgulas e em ordem crescente, os ingredientes da ", pizza, ": ")
         leia(resposta)
+}
 
-        tamanho_ingredientes = t.numero_caracteres(ingredientes)
-        tamanho_resposta = t.numero_caracteres(resposta)
-        //tamanho_ingredientes = Tipos.caracter_para_inteiro(t.numero_caracteres(ingredientes), 10)
-        //tamanho_resposta = Tipos.caracter_para_inteiro(t.numero_caracteres(resposta), 10)
+	funcao mostra_opcoes(){
+	    escreva("Opções de ingredientes:\n")
+	    escreva("[1]Molho de tomate\n")
+	    escreva("[2]Queijo\n")
+	    escreva("[3]Leite de cabra\n")
+	    escreva("[4]Presunto de gambá\n")
+	    escreva("[5]Chocolate do Coelhinho da Páscoa\n")
+	    escreva("[6]Cogumelo do Mário\n")
+	    escreva("[7]Pepperoni\n")
+	    escreva("[8]Pimenta malagueta\n")
+	    escreva("[9]Ovos de dragão\n")
+	    escreva("[10]Bacon\n")	
+	}
+	
+	funcao testa_validade(){
+				faca{
+				se ( s_temp == acumulador_sorteados[v]){
+					teste = falso
+				} senao se (s_temp != acumulador_sorteados[v]){
+					teste = verdadeiro
+				}
+				v = v + 1
+			}enquanto (v <rodada e teste == verdadeiro)
 
-        se(tamanho_resposta == tamanho_ingredientes){
-          para(inteiro v =0; v < tamanho_ingredientes e teste == verdadeiro; v++){
-            se(t.obter_caracter(ingredientes, v) == t.obter_caracter(resposta, v)){
-                teste = verdadeiro
-            } senao {
-              teste = falso
-            }
-          }
-          
-        } se(teste == verdadeiro){
-            escreva("\nParabéns, você acertou!")
-          } senao se (teste == falso){
-            escreva("Poxa, que pena.")
-          }
+	}
 
-      }
-    } enquanto(rodada <=18)
-    } 
+  funcao logica_jogo(){
+	          tamanho_ingredientes = t.numero_caracteres(ingredientes)
+            tamanho_resposta = t.numero_caracteres(resposta)
+            se (tamanho_resposta == tamanho_ingredientes){
+	       		faca{
+					    se(t.obter_caracter(ingredientes, v) == t.obter_caracter(resposta, v)){
+	               	teste = verdadeiro
+	           		} senao se (t.obter_caracter(ingredientes, v) != t.obter_caracter(resposta, v)) {
+	             	teste = falso
+	           		}
+	       			v=v+1
+	       		}enquanto(v<tamanho_resposta e teste== verdadeiro)
+	        } senao se (tamanho_resposta != tamanho_ingredientes) {
+	        	teste = falso
+	        }
+	        
+	        se(teste == verdadeiro){
+	            escreva("\nParabéns, você acertou!")
+	            pontuacao = pontuacao +1
+	            escreva("\nVoce tem ", pontuacao, " pontos")
+	            certo = verdadeiro 
+	          } senao se (teste == falso){
+	            escreva("\nPoxa, que pena.")
+	            certo = falso
+	          }
+			rodada = rodada + 1
+			u.aguarde(1500)
+			limpa()
   }
+
+	funcao inicio() {
+	    faca{
+	    		se (rodada ==1){
+            i = u.sorteia(1,18)
+            escreva("\nprimeiro 'se'")
+            escreva("\n====RODADA ",rodada,"=====\n\n")
+	    			mostra_opcoes()
+			      pede()
+            logica_jogo()
+	    			
+		} senao se (rodada !=1){
+      // definindo a pizza da rodada sem repetir uma que já foi
+			teste = verdadeiro
+			s_temp = u.sorteia(1,18)
+			v = 0
+			testa_validade()
+			se (teste == verdadeiro){
+				i = s_temp
+			} senao se (teste == falso){
+				faca{
+					s_temp = u.sorteia(1,18)
+					testa_validade()
+				} enquanto(teste == falso)
+				i = s_temp
+			}
+      // iniciando a rodada
+      escreva("\n====RODADA ",rodada,"=====\n\n")
+      mostra_opcoes()
+      pede()
+      logica_jogo()
+		}
+	      
+	    } enquanto (rodada<=5 e certo ==verdadeiro)
+	    
+	    se (certo == falso){
+	    	escreva("\nFim de jogo.")
+	    } senao se (certo == verdadeiro){
+	    	escreva ("\nParabéns, você venceu o jogo certando as ", rodada, "rodadas e fazendo", pontuacao, "pontos.")
+	    }
+	    
+				
+			
+		}
+	    }
