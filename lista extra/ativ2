@@ -1,121 +1,35 @@
 programa {
-  inclua biblioteca Texto --> t
-  inclua biblioteca Tipos
+  inclua biblioteca Texto --> t 
   funcao inicio() {
-    cadeia lanche[4] , bebidas[4], outros[4], tamanho_bebidas[4], tamanho_outros[4], acumulador_escolha_lanche="", lanche_escolhido
-    real preco_lanche[4], preco_bebidas[4], preco_outros[4], valor_lanche=0, total_lanche =0
-    caracter escolha_lanche
-    inteiro contador_lanche=0, opcao
+    cadeia palavra
+    inteiro tamanho
+    caracter primeira, ultima, opcao='1'
+    logico igual= falso
 
-    lanche[0] = "Hambúrguer"
-    lanche[1] = "Cheesebúrguer"
-    lanche[2] = "Bauru"
-    lanche[3] = "X-salada"
-
-    preco_lanche[1] = 6.80
-    preco_lanche[0] = 7.50
-    preco_lanche[2] = 5.40
-    preco_lanche[3] = 8.50
-
-    bebidas[0] = "Refrigerante"
-    bebidas[1] = "Refrigerante"
-    bebidas[2] = "Suco"
-    bebidas[3] = "Suco"
-
-    tamanho_bebidas[0] = "200"
-    tamanho_bebidas[1] = "500"
-    tamanho_bebidas[2] = "200"
-    tamanho_bebidas[3] = "500"
-
-    preco_bebidas[1] = 2.30
-    preco_bebidas[0] = 4.00
-    preco_bebidas[2] = 3.50
-    preco_bebidas[3] = 6.00
-
-    outros[0] = "Batatas Fritas"
-    outros[1] = "Batatas Fritas"
-    outros[2] = "Batatas Fritas"
-    outros[3] = "Salada"
-
-    tamanho_outros[0] = "Pequena"
-    tamanho_outros[1] = "Média"
-    tamanho_outros[2] = "Grande"
-    tamanho_outros[3] = "Média"
-
-    preco_outros[1] = 3.50
-    preco_outros[0] = 4.50
-    preco_outros[2] = 5.50
-    preco_outros[3] = 8.00
-
-    escreva("==========Cardápio========")
-    // Mostrando os lanches
-    escreva("\nLanches\n")
-    para(inteiro i=0; i<4; i++){
-      escreva(i, " - ", lanche[i])
-      escreva(" ------")
-      escreva(" R$:", preco_lanche[i], "\n")
-    }
-
-    // Mostrando as bebidas
-    escreva("\n\nBebidas\n")
-    para(inteiro i=0; i<4; i++){
-      escreva(i, " - ", bebidas[i])
-      escreva(" ", tamanho_bebidas[i], "ml")
-      escreva(" ------")
-      escreva(" R$:", preco_lanche[i], "\n")
-    }
-
-    // Mostrando os outros
-    escreva("\n\nOutros\n")
-    para(inteiro i=0; i<4; i++){
-      escreva(i, " - ", outros[i])
-      escreva(" ", tamanho_outros[i])
-      escreva(" ------")
-      escreva(" R$:", preco_outros[i], "\n")
-    }
-
-    escreva("O que deseja escolher primeiro?")
-    escreva("\n[1] Lanche\n[2] Bebida\n[3] Outros\nEscolha: ")
-    leia(opcao)
-
-    escolha(opcao){
-      caso 1:
-      
-      opcao = 0
-      faca{
-        limpa()
-        // mostra somente os lanches
-        escreva("\nLanches\n")
-        para(inteiro i=0; i<4; i++){
-        escreva(i, " - ", lanche[i])
-        escreva(" ------")
-        escreva(" R$:", preco_lanche[i], "\n")
-        }
-
-        // escolhe o lanche
-        escreva("Selecione  número do lanche: ")
-        leia(escolha_lanche)
-        acumulador_escolha_lanche = acumulador_escolha_lanche + escolha_lanche
-        contador_lanche = contador_lanche + 1
-
-        // mostra os lanches que a pessoa escolheu até agora
-        limpa()
-        escreva("Até o momento você selecionou: ")
-        para(inteiro i=contador_lanche; i>0; i--){
-          lanche_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_lanche, (contador_lanche - i)))
-          valor_lanche = preco_lanche[lanche_escolhido]
-          escreva("\n - ",lanche[lanche_escolhido])
-        }
-        total_lanche = total_lanche + valor_lanche
-        escreva("\nTotal: R$",total_lanche)
-
-
-        escreva("\nDeseja escolher mais algum lanche?")
-        escreva("\n[1] SIM\n[2] NÃO\nEscolha: ")
-        leia(opcao)
-      }enquanto(opcao != '2')
-      pare
-    }
     
+    faca{
+      escreva("Digite uma palavra para verificar se ela é um palíndromo: ")
+      leia(palavra)
+      tamanho = t.numero_caracteres(palavra)
+    para(inteiro i=tamanho; i>0 e igual == verdadeiro; i--){
+          primeira = t.obter_caracter(palavra, (tamanho-i))
+          ultima = t.obter_caracter(palavra, (i-1))
+          se(primeira == ultima){
+            igual = verdadeiro
+          } senao se (primeira != ultima){
+            igual = falso
+          }
+    }
+    se (igual == verdadeiro){
+          escreva("\n'",palavra,"' é um palíndromo.")
+        } senao se (igual == falso){
+          escreva("\n'",palavra,"' não é um palíndromo.")
+        }
+        escreva("\nDeseja testar outra palavra?\n[1] SIM \n[2] NÃO \nEScolha: ")
+        leia(opcao)
+        limpa()
+    } enquanto(opcao!='2')
+    
+        
   }
 }
