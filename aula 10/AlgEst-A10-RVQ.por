@@ -1,21 +1,25 @@
 programa {
   funcao inicio() {
     real nota, soma_nota = 0, media, maior, menor
-    inteiro contador = 0, total_alunos
+    inteiro contador = 0, continuar
 
-    escreva("Digite a quantidade de alunos: ")
-    leia(total_alunos)
-    limpa()
+
     faca{
+      limpa()
       se (contador == 0){
-        escreva("Digite a nota: ")
+        escreva("Contador: ",contador)
+        escreva("\nDigite a nota: ")
         leia (nota)
         maior = nota
         menor = nota
+        escreva("\nAdicionar mais alguma nota?\n[1] SIM\n[2] NÃO\nEscolha: ")
+        leia(continuar)
+        //limpa()
       } senao{
-        escreva("Digite a nota: ")
+        continuar = 0
+        escreva("Contador: ",contador)
+        escreva("\nDigite a nota: ")
         leia (nota)
-
         se(nota>maior){
           maior = nota
         } senao se(nota == maior){
@@ -25,12 +29,14 @@ programa {
         } senao se (nota < menor){
           menor = nota
         }
+        escreva("\nAdicionar mais alguma nota?\n[1] SIM\n[2] NÃO\nEscolha: ")
+        leia(continuar)
       }
       soma_nota = soma_nota + nota
       contador = contador +1
       limpa()
-    } enquanto (contador <total_alunos)
-    media = soma_nota/total_alunos
+    } enquanto (continuar !=2)
+    media = soma_nota/contador
     escreva("\nA maior nota foi: ", maior,".")
     escreva("\nA menor nota foi: ", menor,".")
     escreva("\nA média de notas foi: ", media,".")
