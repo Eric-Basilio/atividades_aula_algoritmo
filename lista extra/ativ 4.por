@@ -2,13 +2,13 @@ programa {
 
 inclua biblioteca Util --> u
 inclua biblioteca Texto --> t
-inclua biblioteca Tipos
 
   cadeia pizza = "", ingredientes = "", resposta=""
-  inteiro i,  rodada = 1, acumulador_sorteados[17], v=0, s_temp, pontuacao =0, tamanho_ingredientes, tamanho_resposta
-  logico teste = falso, certo = verdadeiro
+  inteiro i, rodada = 1, acumulador_sorteados[18], v=0, i_temp, pontuacao =0, tamanho_ingredientes, tamanho_resposta
+  logico teste = falso
 
-	funcao caso_pizza(){
+// funções de apoio à lógica do jogo
+	funcao caso_pizza(inteiro i){
   escolha (i) {
       caso 1:
         pizza = "Pizza Dracarys"
@@ -85,16 +85,8 @@ inclua biblioteca Tipos
     }
 }
 
-	funcao pede(){
-        caso_pizza()
-		    acumulador_sorteados[(rodada-1)]= i
-        escreva("\nA pizza sorteada foi: ", pizza, ".")
-        escreva("\n",ingredientes) //apenas para teste apagar quando commitar
-        escreva("\nEscreva, separado por vírgulas e em ordem crescente, os ingredientes da ", pizza, ": ")
-        leia(resposta)
-}
-
 	funcao mostra_opcoes(){
+      escreva("\n====RODADA ",rodada,"=====\n\n")
 	    escreva("Opções de ingredientes:\n")
 	    escreva("[1]Molho de tomate\n")
 	    escreva("[2]Queijo\n")
@@ -107,21 +99,28 @@ inclua biblioteca Tipos
 	    escreva("[9]Ovos de dragão\n")
 	    escreva("[10]Bacon\n")	
 	}
-	
+
+	funcao pede(){
+        caso_pizza(i)
+		    acumulador_sorteados[(rodada-1)]= i
+        escreva("\nA pizza sorteada foi: ", pizza, ".")
+        escreva("\nEscreva, separado por vírgulas e em ordem crescente, os ingredientes da ", pizza, ": ")
+        leia(resposta)
+}
+
 	funcao testa_validade(){
         v=0
 				faca{
-				se ( s_temp == acumulador_sorteados[v]){
+				se ( i_temp == acumulador_sorteados[v]){
 					teste = falso
-				} senao se (s_temp != acumulador_sorteados[v]){
+				} senao se (i_temp != acumulador_sorteados[v]){
 					teste = verdadeiro
 				}
 				v = v + 1
 			}enquanto (v <rodada e teste == verdadeiro)
-
 	}
 
-  funcao logica_jogo(){
+  funcao logica_central_jogo(){
             v=0
 	          tamanho_ingredientes = t.numero_caracteres(ingredientes)
             tamanho_resposta = t.numero_caracteres(resposta)
@@ -148,71 +147,65 @@ inclua biblioteca Tipos
                 escreva("\nVocê tem ", pontuacao, " ponto.")
               } senao se(pontuacao ==0){
                 escreva("\nVocê está com 0 pontos.")
-              }
-	           
-	            certo = verdadeiro 
+              }            
 	          } senao se (teste == falso){
               limpa()
 	            escreva("\nPoxa, que pena.")
-              escreva("\nVocê não pontuou nessa rodada.")
-	            certo = falso
+              escreva("\nVocê não pontuou nessa rodada.\nContinua com ", pontuacao, " pontos.")
 	          }
 			rodada = rodada + 1
 			u.aguarde(2000)
 			limpa()
   }
 
+//começando o jogo
 	funcao inicio() {
 	    faca{
 	    		se (rodada ==1){
             i = u.sorteia(1,18)
-            escreva("\n====RODADA ",rodada,"=====\n\n")
 	    			mostra_opcoes()
 			      pede()
-            logica_jogo()
+            logica_central_jogo()
 	    			
 		} senao se (rodada !=1){
       // definindo a pizza da rodada sem repetir uma que já foi
 			teste = verdadeiro
-			s_temp = u.sorteia(1,18)
+			i_temp = u.sorteia(1,18)
 			testa_validade()
 			se (teste == verdadeiro){
-				i = s_temp
+				i = i_temp
 			} senao se (teste == falso){
 				faca{
-					s_temp = u.sorteia(1,18)
+					i_temp = u.sorteia(1,18)
 					testa_validade()
 				} enquanto(teste == falso)
-				i = s_temp
+				i = i_temp
 			}
-      // iniciando a rodada
-      escreva("\n====RODADA ",rodada,"=====\n\n")
+      // iniciando a nova rodada
       mostra_opcoes()
       pede()
-      logica_jogo()
+      logica_central_jogo()
 		}
 	      
-	    } enquanto (rodada<=18)
+	    } enquanto (rodada<=3)
 	    
+      //respostas personalizadas no fim do jogo
 	    se (pontuacao >16){
-	    	escreva("\nFim de jogo.")
+	    	escreva("\n\n====Fim de jogo====\n")
         escreva("\nVocê consegiu ", pontuacao, " pontos.")
-        escreva("\nRecebeu o título: Mestre-cuca maluco.")
+        escreva("\nRecebeu o título: Mestre-cuca maluco.\n\n")
 	    } senao se (pontuacao > 12 e pontuacao < 16){
-	    	escreva("\nFim de jogo.")
+	    	escreva("\n\n====Fim de jogo====\n")
         escreva("\nVocê consegiu ", pontuacao, " pontos.")
-        escreva("\nRecebeu o título: Iniciante Louco.")
+        escreva("\nRecebeu o título: Iniciante Louco.\n\n")
 	    } senao se (pontuacao > 6 e pontuacao < 12){
-	    	escreva("\nFim de jogo.")
+	    	escreva("\n\n====Fim de jogo====\n")
         escreva("\nVocê consegiu ", pontuacao, " pontos.")
-        escreva("\nRecebeu o título: Treinee de hospício.")
-	    } senao se (pontuacao >= 5){
-	    	escreva("\nFim de jogo.")
+        escreva("\nRecebeu o título: Treinee de hospício.\n\n")
+	    } senao se (pontuacao <= 5){
+	    	escreva("\n\n====Fim de jogo====\n")
         escreva("\nVocê consegiu ", pontuacao, " pontos.")
-        escreva("\nRecebeu o título: Estagiário lelé.")
+        escreva("\nRecebeu o título: Estagiário lelé.\n\n")
 	    }
-	    
-				
-			
 		}
 	    }
