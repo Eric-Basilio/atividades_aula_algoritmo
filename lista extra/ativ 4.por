@@ -187,18 +187,18 @@ inclua biblioteca Texto --> t
       logica_central_jogo()
 		}
 	      
-	    } enquanto (rodada<=3)
+	    } enquanto (rodada<=18)
 	    
       //respostas personalizadas no fim do jogo
-	    se (pontuacao >16){
+	    se (pontuacao >=16){
 	    	escreva("\n\n====Fim de jogo====\n")
         escreva("\nVocê consegiu ", pontuacao, " pontos.")
         escreva("\nRecebeu o título: Mestre-cuca maluco.\n\n")
-	    } senao se (pontuacao > 12 e pontuacao < 16){
+	    } senao se (pontuacao >= 12 e pontuacao < 16){
 	    	escreva("\n\n====Fim de jogo====\n")
         escreva("\nVocê consegiu ", pontuacao, " pontos.")
         escreva("\nRecebeu o título: Iniciante Louco.\n\n")
-	    } senao se (pontuacao > 6 e pontuacao < 12){
+	    } senao se (pontuacao >= 6 e pontuacao < 12){
 	    	escreva("\n\n====Fim de jogo====\n")
         escreva("\nVocê consegiu ", pontuacao, " pontos.")
         escreva("\nRecebeu o título: Treinee de hospício.\n\n")
