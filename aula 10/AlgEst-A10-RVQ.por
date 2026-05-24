@@ -1,8 +1,11 @@
 programa {
   funcao inicio() {
     real nota, soma_nota = 0, media, maior, menor
-    inteiro contador = 0
+    inteiro contador = 0, total_alunos
 
+    escreva("Digite a quantidade de alunos: ")
+    leia(total_alunos)
+    limpa()
     faca{
       se (contador == 0){
         escreva("Digite a nota: ")
@@ -26,8 +29,8 @@ programa {
       soma_nota = soma_nota + nota
       contador = contador +1
       limpa()
-    } enquanto (contador <5)
-    media = soma_nota/contador
+    } enquanto (contador <total_alunos)
+    media = soma_nota/total_alunos
     escreva("\nA maior nota foi: ", maior,".")
     escreva("\nA menor nota foi: ", menor,".")
     escreva("\nA média de notas foi: ", media,".")
