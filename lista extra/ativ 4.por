@@ -89,6 +89,7 @@ inclua biblioteca Tipos
         caso_pizza()
 		    acumulador_sorteados[(rodada-1)]= i
         escreva("\nA pizza sorteada foi: ", pizza, ".")
+        escreva("\n",ingredientes) //apenas para teste apagar quando commitar
         escreva("\nEscreva, separado por vírgulas e em ordem crescente, os ingredientes da ", pizza, ": ")
         leia(resposta)
 }
@@ -108,6 +109,7 @@ inclua biblioteca Tipos
 	}
 	
 	funcao testa_validade(){
+        v=0
 				faca{
 				se ( s_temp == acumulador_sorteados[v]){
 					teste = falso
@@ -120,6 +122,7 @@ inclua biblioteca Tipos
 	}
 
   funcao logica_jogo(){
+            v=0
 	          tamanho_ingredientes = t.numero_caracteres(ingredientes)
             tamanho_resposta = t.numero_caracteres(resposta)
             se (tamanho_resposta == tamanho_ingredientes){
@@ -136,16 +139,26 @@ inclua biblioteca Tipos
 	        }
 	        
 	        se(teste == verdadeiro){
+              limpa()
 	            escreva("\nParabéns, você acertou!")
 	            pontuacao = pontuacao +1
-	            escreva("\nVoce tem ", pontuacao, " pontos")
+              se (pontuacao >1){
+                escreva("\nVocê tem ", pontuacao, " pontos.")
+              } senao se (pontuacao ==1){
+                escreva("\nVocê tem ", pontuacao, " ponto.")
+              } senao se(pontuacao ==0){
+                escreva("\nVocê está com 0 pontos.")
+              }
+	           
 	            certo = verdadeiro 
 	          } senao se (teste == falso){
+              limpa()
 	            escreva("\nPoxa, que pena.")
+              escreva("\nVocê não pontuou nessa rodada.")
 	            certo = falso
 	          }
 			rodada = rodada + 1
-			u.aguarde(1500)
+			u.aguarde(2000)
 			limpa()
   }
 
@@ -153,7 +166,6 @@ inclua biblioteca Tipos
 	    faca{
 	    		se (rodada ==1){
             i = u.sorteia(1,18)
-            escreva("\nprimeiro 'se'")
             escreva("\n====RODADA ",rodada,"=====\n\n")
 	    			mostra_opcoes()
 			      pede()
@@ -163,7 +175,6 @@ inclua biblioteca Tipos
       // definindo a pizza da rodada sem repetir uma que já foi
 			teste = verdadeiro
 			s_temp = u.sorteia(1,18)
-			v = 0
 			testa_validade()
 			se (teste == verdadeiro){
 				i = s_temp
@@ -181,12 +192,24 @@ inclua biblioteca Tipos
       logica_jogo()
 		}
 	      
-	    } enquanto (rodada<=5 e certo ==verdadeiro)
+	    } enquanto (rodada<=18)
 	    
-	    se (certo == falso){
+	    se (pontuacao >16){
 	    	escreva("\nFim de jogo.")
-	    } senao se (certo == verdadeiro){
-	    	escreva ("\nParabéns, você venceu o jogo certando as ", rodada, "rodadas e fazendo", pontuacao, "pontos.")
+        escreva("\nVocê consegiu ", pontuacao, " pontos.")
+        escreva("\nRecebeu o título: Mestre-cuca maluco.")
+	    } senao se (pontuacao > 12 e pontuacao < 16){
+	    	escreva("\nFim de jogo.")
+        escreva("\nVocê consegiu ", pontuacao, " pontos.")
+        escreva("\nRecebeu o título: Iniciante Louco.")
+	    } senao se (pontuacao > 6 e pontuacao < 12){
+	    	escreva("\nFim de jogo.")
+        escreva("\nVocê consegiu ", pontuacao, " pontos.")
+        escreva("\nRecebeu o título: Treinee de hospício.")
+	    } senao se (pontuacao >= 5){
+	    	escreva("\nFim de jogo.")
+        escreva("\nVocê consegiu ", pontuacao, " pontos.")
+        escreva("\nRecebeu o título: Estagiário lelé.")
 	    }
 	    
 				
