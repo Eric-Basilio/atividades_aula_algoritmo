@@ -1,0 +1,35 @@
+programa {
+  inclua biblioteca Texto --> t 
+  funcao inicio() {
+    cadeia palavra
+    inteiro tamanho
+    caracter primeira, ultima, opcao='1'
+    logico igual= falso
+
+    
+    faca{
+      escreva("Digite uma palavra para verificar se ela é um palíndromo: ")
+      leia(palavra)
+      tamanho = t.numero_caracteres(palavra)
+    para(inteiro i=tamanho; i>0 e igual == verdadeiro; i--){
+          primeira = t.obter_caracter(palavra, (tamanho-i))
+          ultima = t.obter_caracter(palavra, (i-1))
+          se(primeira == ultima){
+            igual = verdadeiro
+          } senao se (primeira != ultima){
+            igual = falso
+          }
+    }
+    se (igual == verdadeiro){
+          escreva("\n'",palavra,"' é um palíndromo.")
+        } senao se (igual == falso){
+          escreva("\n'",palavra,"' não é um palíndromo.")
+        }
+        escreva("\nDeseja testar outra palavra?\n[1] SIM \n[2] NÃO \nEScolha: ")
+        leia(opcao)
+        limpa()
+    } enquanto(opcao!='2')
+    
+        
+  }
+}

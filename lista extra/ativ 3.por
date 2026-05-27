@@ -1,16 +1,15 @@
 programa {
   inclua biblioteca Texto --> t
-  inclua biblioteca Tipos
 
-  cadeia lanche[4], acumulador_escolha_lanche="", lanche_escolhido
-  cadeia bebidas[4],  tamanho_bebidas[4], acumulador_escolha_bebidas="", bebidas_escolhido
-  cadeia outros[4], tamanho_outros[4], acumulador_escolha_outros="", outros_escolhido
+  cadeia lanche[4], acumulador_escolha_lanche=""
+  cadeia bebidas[4],  tamanho_bebidas[4], acumulador_escolha_bebidas=""
+  cadeia outros[4], tamanho_outros[4], acumulador_escolha_outros=""
   real preco=0, total_geral
   real preco_lanche[4], total_lanche = 0
   real preco_bebidas[4], total_bebidas = 0
   real preco_outros[4], total_outros = 0
-  caracter escolha_lanche
-  caracter escolha_bebidas
+  caracter escolha_lanche, lanche_escolhido
+  caracter escolha_bebidas, bebidas_escolhido, outros_escolhido
   caracter escolha_outros
   inteiro contador_lanche=0, opcao=0
   inteiro contador_bebidas=0
@@ -25,7 +24,7 @@ programa {
     }
     funcao mostra_lanches_escolhidos(){
       para(inteiro i=contador_lanche; i>0; i--){
-          lanche_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_lanche, (contador_lanche - i)))
+          lanche_escolhido = t.obter_caracter(acumulador_escolha_lanche, (contador_lanche - i))
           preco = preco_lanche[lanche_escolhido]
           escreva("\n - ",lanche[lanche_escolhido])
           escreva(" ------")
@@ -42,7 +41,7 @@ programa {
     }
     funcao mostra_bebidas_escolhidas(){
       para(inteiro i=contador_bebidas; i>0; i--){
-          bebidas_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_bebidas, (contador_bebidas - i)))
+          bebidas_escolhido = t.obter_caracter(acumulador_escolha_bebidas, (contador_bebidas - i))
           preco = preco_bebidas[bebidas_escolhido]
           escreva("\n - ",bebidas[bebidas_escolhido], " ", tamanho_bebidas[bebidas_escolhido],"ml")
           escreva(" ------")
@@ -59,14 +58,13 @@ programa {
     }
     funcao mostra_outros_escolhidos(){
       para(inteiro i=contador_outros; i>0; i--){
-          outros_escolhido = Tipos.caracter_para_cadeia(t.obter_caracter(acumulador_escolha_outros, (contador_outros - i)))
+          outros_escolhido = t.obter_caracter(acumulador_escolha_outros, (contador_outros - i))
           preco = preco_outros[outros_escolhido]
           escreva("\n - ",outros[outros_escolhido], " ", tamanho_outros[outros_escolhido])
           escreva(" ------")
           escreva(" R$:", preco_outros[outros_escolhido])
         }
     }
-
   funcao inicio() {
     lanche[0] = "Hambúrguer"
     lanche[1] = "Cheesebúrguer"
@@ -125,7 +123,6 @@ programa {
       escreva("\nO que deseja agora?")
       escreva("\n[1] Lanche\n[2] Bebida\n[3] Outros\n[4] Finalizar a compra\nEscolha: ")
       leia(opcao)
-
       escolha(opcao){
       caso 1:
       faca{
@@ -133,13 +130,11 @@ programa {
         // mostra somente os lanches
         escreva("\nLanches: \n")
         mostra_lanches()
-
         // escolhe o lanche
         escreva("Selecione  número do lanche: ")
         leia(escolha_lanche)
         acumulador_escolha_lanche = acumulador_escolha_lanche + escolha_lanche
         contador_lanche = contador_lanche + 1
-
         // mostra os lanches que a pessoa escolheu até agora
         limpa()
         escreva("Até o momento você selecionou: ")
@@ -153,20 +148,17 @@ programa {
       }enquanto(opcao != 2)
       opcao =0
       pare
-
       caso 2:
       faca{
         limpa()
         // mostra somente os bebidas
         escreva("\nBebidas: \n")
         mostra_bebidas()
-
         // escolhe as bebidas
         escreva("Selecione  número da bebida: ")
         leia(escolha_bebidas)
         acumulador_escolha_bebidas = acumulador_escolha_bebidas + escolha_bebidas
         contador_bebidas = contador_bebidas + 1
-
         // mostra os bebidas que a pessoa escolheu até agora
         limpa()
         escreva("Até o momento você selecionou: ")
@@ -186,13 +178,11 @@ programa {
         // mostra somente os outros
         escreva("\noutros\n")
         mostra_outros()
-
         // escolhe o outros
         escreva("Selecione  número do outros: ")
         leia(escolha_outros)
         acumulador_escolha_outros = acumulador_escolha_outros + escolha_outros
         contador_outros = contador_outros + 1
-
         // mostra os outros que a pessoa escolheu até agora
         limpa()
         escreva("Até o momento você selecionou: ")
@@ -208,33 +198,35 @@ programa {
       pare
     }
     } enquanto(opcao !=4)
+    // saída do loop de escolhas do cardápio
+    // soma o total geral e mostra ao usuário o que ele pediu + preço final
     total_geral = total_lanche + total_bebidas + total_outros
     limpa()
     escreva("=======Finalizando a Compra=======")
     se(total_lanche>0){
       escreva("\nLanches: ")
         mostra_lanches_escolhidos()
-        escreva("\nTotal: R$",total_lanche)
+        escreva("\nSubtotal: R$",total_lanche)
     } senao se(total_lanche<=0){
-      escreva("\nLanche: ")
+      escreva("\n\nLanche: ")
       escreva("\n0 itens desta categoria selecionados.")
     }
     se(total_bebidas>0){
       escreva("\n\nBebidas: ")
         mostra_bebidas_escolhidas()
-        escreva("\nTotal: R$",total_bebidas)
+        escreva("\nSubtotal: R$",total_bebidas)
     } senao se(total_bebidas<=0){
-      escreva("\nBebidas: ")
+      escreva("\n\nBebidas: ")
       escreva("\n0 itens desta categoria selecionados.")
     }
     se(total_outros>0){
       escreva("\n\nOutros: ")
         mostra_outros_escolhidos()
-        escreva("\nTotal: R$",total_outros)
+        escreva("\nSubtotal: R$",total_outros)
     } senao se(total_outros<=0){
-      escreva("\nOutros: ")
+      escreva("\n\nOutros: ")
       escreva("\n0 itens desta categoria selecionados.")
     }
-escreva("\n\nO total geral deu: R$", total_geral)
+    escreva("\n\nO total geral deu: R$", total_geral)
   }
 }
