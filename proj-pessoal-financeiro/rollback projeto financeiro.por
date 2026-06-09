@@ -2,7 +2,7 @@ programa
 {
 	inclua biblioteca Util --> u
 	
-	inteiro opcao, continuar, excluir, confirma_exclusao, validacao = 0
+	inteiro excluir, confirma_exclusao, validacao = 0
 	
 	/* arrays que serão minha simulação de objetos.
 	Cada array é como se fosse uma propriedade do objeto. */
@@ -34,11 +34,11 @@ programa
 	
 	funcao inicio() 
 	{
-		opcao = 0 // Inicializando a opção para entrar no laço
+		inteiro opcao, continuar
 		
-		enquanto(opcao != 4)
+		faca
 		{
-			se(opcao < 0 ou opcao > 4)
+			se(opcao <= 0 ou opcao > 4)
 			{
 				escreva("\nOpção inválida. \nEscolha de 1 a 4, de acordo com a necessidade.")
 				u.aguarde(3000)
@@ -175,7 +175,7 @@ programa
 										senao 
 										{
 											escreva("\nCadastro vazio.\nVoltando ao menu inicial.")
-											u.aguarde(5000)
+											u.aguarde(2000)
 										}
 										
 										se(total_despesas > 0) 
@@ -222,6 +222,17 @@ programa
 					}
 					pare
 			}
-		}
+		} enquanto(opcao != 4)
 	}
 }
+/* $$$ Portugol Studio $$$ 
+ * 
+ * Esta seção do arquivo guarda informações do Portugol Studio.
+ * Você pode apagá-la se estiver utilizando outro editor.
+ * 
+ * @POSICAO-CURSOR = 963; 
+ * @PONTOS-DE-PARADA = ;
+ * @SIMBOLOS-INSPECIONADOS = ;
+ * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
+ * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
+ */
