@@ -5,7 +5,7 @@ programa {
     real notaFime[10][13], maiorNota=0, menorNota=10, somaNotas=0, media
 
     //COLETA DE NOTAS
-    para(inteiro i=0; i<2; i++){
+    para(inteiro i=0; i<10; i++){
       para(inteiro j=0; j<12; j++){
         // RECEBIMENTO E SANITIZAÇÃO DO INPUT DAS NOTAS
         faca{
@@ -27,22 +27,29 @@ programa {
     para(inteiro  i=0; i<10; i++){
       para(inteiro  j=0; j<12; j++){
         //IDENTIFICANDO A MAIOR
-       se(notaFime[i][j]>maiorNota){
-          maiorNota = notaFime[i][j]
-       }
+        se(notaFime[i][j]>maiorNota){
+            maiorNota = notaFime[i][j]
+        }
         // IDENTIFICANDO  A MENOR
         se(notaFime[i][j]<=menorNota){
           menorNota = notaFime[i][j]
         }
-        //INICIO CÁLCULO DA MÉDIA
+        //SOMATÓRIO DE NOTAS
         somaNotas =  somaNotas  + notaFime[i][j]
       }
+      //CÁLCULO DA MÉDIA
       media = (somaNotas-maiorNota-menorNota)/12
       notaFime[i][12]=media
-
-      escreva("Filme: ", filmes[i], ".")
+      
+      //MOSTRANDO OS FILMES E SUAS MÉDIAS
+      escreva("Filme: '", filmes[i], "'.")
       escreva("\nMédia: ", notaFime[i][12])
-      escreva("\n______________________________\n")
+      escreva("\n______________________________\n\n")
+
+      // REINICIANDO VARIÁVEIS
+        somaNotas = 0
+        maiorNota = 0
+        menorNota = 10
     }
 
   }
