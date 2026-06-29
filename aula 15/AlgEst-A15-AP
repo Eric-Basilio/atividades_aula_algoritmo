@@ -1,0 +1,96 @@
+programa {
+  inclua biblioteca Util --> u
+
+  caracter jogo[3][3] = {{'_', '_', '_'},{'_', '_', '_'},{'_', '_', '_'}}, vencedor
+  inteiro coluna, linha
+
+  //INSTANCIAÇÃO DE FUNÇÃO PARA LER JOGADA DO X
+  funcao jogadaX(){
+    faca{
+      escreva("\nEscolha uma linha de   1 a  3. ")
+      leia(linha)
+      escreva("\nEscolha uma coluna de   1 a  3. ")
+      leia(coluna)
+      limpa()
+      se(jogo[linha-1][coluna-1]=='X' ou jogo[linha-1][coluna-1]=='O'){
+        escreva("Espaço já utilizado, tente outro.")
+      } senao {
+        jogo[linha-1][coluna-1]='X'
+        escreva("Jogada registrada com sucesso!")
+      }
+      u.aguarde(2000)
+      limpa()
+    }enquanto(jogo[linha-1][coluna-1]!='X' ou jogo[linha-1][coluna-1]!='O')
+  }
+
+  // FUNÇÃO PARA LERA JOGADA DO O
+  funcao jogadaO(){
+    faca{
+      escreva("\nEscolha uma linha de   1 a  3. ")
+      leia(linha)
+      escreva("\nEscolha uma coluna de   1 a  3. ")
+      leia(coluna)
+      limpa()
+      se(jogo[linha-1][coluna-1]=='X' ou jogo[linha-1][coluna-1]=='O'){
+        escreva("Espaço já utilizado, tente outro.")
+      } senao {
+        jogo[linha-1][coluna-1]='O'
+        escreva("Jogada registrada com sucesso!")
+      }
+      u.aguarde(2000)
+      limpa()
+    }enquanto(jogo[linha-1][coluna-1]!='X' ou jogo[linha-1][coluna-1]!='O')
+  }
+
+  //FUNÇÃO QUE VERIFICA VENCEDORES
+  funcao eVencedor(){
+    //VERIFICANDO VENCEDOR NA PRIMEIRA LINHA
+    se(jogo[0][0] == jogo[0][1] e jogo[0][0] == jogo[0][2] e jogo[0][0] != '_'){
+      escreva("O jogador ", jogo[0][0], " venceu essa partida.")
+      vencedor = jogo[0][0]
+    } //VERIFICANDO VENCEDOR NA PRIMEIRA COLUNA
+    senao se (jogo[0][0] == jogo[1][0] e jogo[0][0] == jogo[2][0] e jogo[0][0] != '_'){
+      escreva("O jogador ", jogo[0][0], " venceu essa partida.")
+      vencedor = jogo[0][0]
+    } //VERIFICANDO VENCEDOR NA SEGUNDA LINHA
+    senao se(jogo[1][0] == jogo[1][1] e jogo[1][0] == jogo[1][2] e jogo[1][0] != '_'){
+      escreva("O jogador ", jogo[1][0], " venceu essa partida.")
+      vencedor = jogo[1][0]
+    } //VERIFICANDO VENCEDOR NA SEGUNDA COLUNA
+    senao se (jogo[0][1] == jogo[1][1] e jogo[0][1] == jogo[2][1] e jogo[0][1] != '_'){
+      escreva("O jogador ", jogo[1][0], " venceu essa partida.")
+      vencedor = jogo[1][0]
+    } //VERIFICANDO VENCEDOR NA TERCEIRA LINHA
+    senao se(jogo[2][0] == jogo[2][1] e jogo[2][0] == jogo[2][2] e jogo[2][0] != '_'){
+      escreva("O jogador ", jogo[2][0], " venceu essa partida.")
+      vencedor = jogo[2][0]
+    } // VERIFICANDO VENCEDOR NA TERCEIRA COLUNA
+    senao se (jogo[0][2] == jogo[1][2] e jogo[0][2] == jogo[2][2] e jogo[0][2] != '_'){
+      escreva("O jogador ", jogo[2][0], " venceu essa partida.")
+      vencedor = jogo[2][0]
+    } // VERIFICANDO VENCEDOR NA DIAGONAL CRESCENTE
+    senao se(jogo[0][0]==jogo[1][1] e jogo[0][0]==jogo[2][2] e jogo[0][0] != '_'){
+      escreva("O jogador ", jogo[0][0], " venceu essa partida.")
+      vencedor = jogo[0][0]
+    }
+    
+
+  }
+
+  funcao inicio() {
+    inteiro rodada = 0
+
+    se(u.sorteia(1,2)==1){
+      escreva("O jogador 'X' começa!")
+    } senao  {
+      escreva("O jogador 'O' começa!")
+    }
+
+    faca{
+
+      rodada = rodada +1
+    }enquanto(rodada<=9)
+
+
+  }
+}
