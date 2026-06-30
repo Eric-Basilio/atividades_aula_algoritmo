@@ -3,10 +3,11 @@ programa {
 
   caracter jogo[3][3] = {{'_', '_', '_'},{'_', '_', '_'},{'_', '_', '_'}}, vencedor = '_', ultimo
   inteiro coluna, linha
+  logico valida
 
   //INSTANCIAÇÃO DE FUNÇÃO PARA LER JOGADA DO X
   funcao jogadaX(){
-    logico valido = verdadeiro
+    valida = verdadeiro
     faca{
       escreva("\nVêz do X\n")
       mostrarJogo()
@@ -37,13 +38,14 @@ programa {
       limpa()
       se(jogo[linha][coluna]!= '_'){
         escreva("Espaço já utilizado, tente outro.")
-        valido = falso
+        valida = falso
       } senao {
         jogo[linha][coluna]='X'
         escreva("Jogada registrada com sucesso!\n")
         mostrarJogo()
+        valida = verdadeiro
       }
-    }enquanto(jogo[linha][coluna]!='X' e jogo[linha][coluna]!='O')
+    }enquanto(valida == falso)
     ultimo = 'X'
   }
 
@@ -51,6 +53,7 @@ programa {
   funcao jogadaO(){
     // LENDO LINHA COM VERIFICAÇÃO DA VALIDADE DO NÚMERO
     faca{
+      valida = verdadeiro
       escreva("\nVêz do O\n")
       mostrarJogo()
       faca{
@@ -83,7 +86,7 @@ programa {
         escreva("Jogada registrada com sucesso!\n")
         mostrarJogo()
       }
-    }enquanto(jogo[linha][coluna]!='X' e jogo[linha][coluna]!='O')
+    }enquanto(valida == falso)
     ultimo = 'O'
   }
 
