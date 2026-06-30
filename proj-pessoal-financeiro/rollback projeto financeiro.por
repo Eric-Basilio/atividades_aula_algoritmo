@@ -2,23 +2,32 @@ programa
 {
 	inclua biblioteca Util --> u
 	
-	inteiro excluir, confirma_exclusao, validacao = 0
+	inteiro excluir, confirma_exclusao, validacao = 0, renda, resta_renda
 	
 	/* arrays que serão minha simulação de objetos.
 	Cada array é como se fosse uma propriedade do objeto. */
-	cadeia nome_despesa[3], data_despesa[3]
-	real valor_despesas[3]
+	cadeia nome_despesa[100], data_despesa[100]
+	real valor_despesas[100], soma_despesas = 0
 	
 	// contador que me ajudará a referenciar o indice do array
 	inteiro total_despesas = 0
 
 	funcao mostrarLista()
 	{
+    soma_despesas = 0
 		para(inteiro i = 0; i < total_despesas; i++)
 		{
+      soma_despesas = soma_despesas + valor_despesas[i]
 			escreva("\nItem ", i,".", "\nDescrição: ",nome_despesa[i],". \nValor: ",valor_despesas[i], ". \nData: ", data_despesa[i], ".\n")
 			escreva("-------------------------------------\n")
 		}
+    escreva("\nTotal geral das despesas: R$",soma_despesas, ".")
+    resta_renda = renda - soma_despesas
+    se(resta_renda>0){
+      escreva("\nIrá sobrar R$",resta_renda, " no fim do mês.")
+    } senao {
+      escreva("\nIrá faltar R$",resta_renda*(-1), " no fim do mês.")
+    }
 	}
 	
 	funcao apagar()
@@ -35,16 +44,13 @@ programa
 	funcao inicio() 
 	{
 		inteiro opcao, continuar
+
+    escreva("Antes de iniciar, por favor digite o valor, em reais, de sua renda mensal: ")
+    leia(renda)
+    limpa()
 		
 		faca
-		{
-			se(opcao <= 0 ou opcao > 4)
-			{
-				escreva("\nOpção inválida. \nEscolha de 1 a 4, de acordo com a necessidade.")
-				u.aguarde(3000)
-				limpa()
-			}
-			
+		{			
 			// página do menu inicial
 			escreva("========== Menu Inicial ==========\n")
 			escreva("\nBem-vindo ao Controle Financeiro!")
@@ -55,6 +61,14 @@ programa
 			escreva("\n[4] Sair.")
 			escreva("\nEscolha: ")
 			leia(opcao)
+
+      // TESTA A VALIDADE DA OPÇÃO
+      se(opcao <= 0 ou opcao > 4)
+			{
+				escreva("\nOpção inválida. \nEscolha de 1 a 4, de acordo com a necessidade.")
+				u.aguarde(3000)
+				limpa()
+			}
 
 			// possibilidades de escolhas do usuário
 			escolha(opcao)
@@ -225,14 +239,3 @@ programa
 		} enquanto(opcao != 4)
 	}
 }
-/* $$$ Portugol Studio $$$ 
- * 
- * Esta seção do arquivo guarda informações do Portugol Studio.
- * Você pode apagá-la se estiver utilizando outro editor.
- * 
- * @POSICAO-CURSOR = 963; 
- * @PONTOS-DE-PARADA = ;
- * @SIMBOLOS-INSPECIONADOS = ;
- * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
- * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
- */
