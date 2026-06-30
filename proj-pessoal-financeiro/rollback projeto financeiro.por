@@ -2,7 +2,8 @@ programa
 {
 	inclua biblioteca Util --> u
 	
-	inteiro excluir, confirma_exclusao, validacao = 0, renda, resta_renda
+	inteiro excluir, confirma_exclusao, validacao = 0
+  	real renda, resta_renda
 	
 	/* arrays que serão minha simulação de objetos.
 	Cada array é como se fosse uma propriedade do objeto. */
@@ -17,11 +18,15 @@ programa
     soma_despesas = 0
 		para(inteiro i = 0; i < total_despesas; i++)
 		{
+      // SOMA AS DESPESAS E AS MOSTRA INDIVIDUALMENTE 
       soma_despesas = soma_despesas + valor_despesas[i]
 			escreva("\nItem ", i,".", "\nDescrição: ",nome_despesa[i],". \nValor: ",valor_despesas[i], ". \nData: ", data_despesa[i], ".\n")
 			escreva("-------------------------------------\n")
 		}
+
+    // MOSTRA O SOMATÓRIO DAS DESPESAS E A DIFERENÇA RENDA VS DESPESAS
     escreva("\nTotal geral das despesas: R$",soma_despesas, ".")
+    escreva("\nRenda informada: R$",renda, ".")
     resta_renda = renda - soma_despesas
     se(resta_renda>0){
       escreva("\nIrá sobrar R$",resta_renda, " no fim do mês.")
@@ -79,7 +84,8 @@ programa
 					{
 						limpa()
 
-						se(total_despesas < 3)
+            // RECEBE AS DESPESAS SE TIVER ESPAÇO DISPONÍVEL NOS VETORES
+						se(total_despesas < 100)
 						{
 							// coletando as informações do objeto
 							escreva("===== Painel de Cadastro de Despesas =====")
@@ -97,9 +103,10 @@ programa
 							limpa()
 
 							// apresentando dados cadastrados ao usuário
-							escreva("\nDespesas cadastradas até o momento: \n")
-							mostrarLista()              
+							/*escreva("\nDespesas cadastradas até o momento: \n")
+							mostrarLista()*/              
 							
+              // IMPEDE DE VOLTAR PRO MENU INICIAL A MENOS QUE O USUÁRIO QUEIRA
 							enquanto(validacao <= 0 ou validacao > 2)
 							{
 								limpa()
