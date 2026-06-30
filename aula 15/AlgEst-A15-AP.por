@@ -6,42 +6,44 @@ programa {
 
   //INSTANCIAÇÃO DE FUNÇÃO PARA LER JOGADA DO X
   funcao jogadaX(){
+    logico valido = verdadeiro
     faca{
       escreva("\nVêz do X\n")
       mostrarJogo()
 
       // LENDO LINHA COM VERIFICAÇÃO DA VALIDADE DO NÚMERO 
       faca{
-        escreva("\nEscolha uma linha de   1 a  3: ")
+        escreva("\nEscolha uma linha de   0 a  2: ")
         leia(linha)
-        se(linha<0 ou linha>3){
+        se(linha<0 ou linha>2){
           escreva("Digite um número válido.")
           u.aguarde(2000)
           limpa()
         }
-      }enquanto(linha<0 ou linha>3)
+      }enquanto(linha<0 ou linha>2)
 
       // LENDO COLUNA COM VERIFICAÇÃO DA VALIDADE DO NÚMERO
       faca{
-        escreva("\nEscolha uma coluna de   1 a  3: ")
+        escreva("\nEscolha uma coluna de   0 a  2: ")
         leia(coluna)
-        se(coluna<0 ou coluna>3){
+        se(coluna<0 ou coluna>2){
           escreva("Digite um número válido.")
           u.aguarde(2000)
           limpa()
         }
-      }enquanto(coluna<0 ou coluna>3)
+      }enquanto(coluna<0 ou coluna>2)
 
       // VERIFICA SE ESPAÇO ESTÁ DISPONÍVEL E SALVA A JOGADA
       limpa()
-      se(jogo[linha-1][coluna-1]!= '_'){
+      se(jogo[linha][coluna]!= '_'){
         escreva("Espaço já utilizado, tente outro.")
+        valido = falso
       } senao {
-        jogo[linha-1][coluna-1]='X'
+        jogo[linha][coluna]='X'
         escreva("Jogada registrada com sucesso!\n")
         mostrarJogo()
       }
-    }enquanto(jogo[linha-1][coluna-1]!='X' e jogo[linha-1][coluna-1]!='O')
+    }enquanto(jogo[linha][coluna]!='X' e jogo[linha][coluna]!='O')
     ultimo = 'X'
   }
 
@@ -52,36 +54,36 @@ programa {
       escreva("\nVêz do O\n")
       mostrarJogo()
       faca{
-        escreva("\nEscolha uma linha de   1 a  3: ")
+        escreva("\nEscolha uma linha de   0 a  2: ")
         leia(linha)
-        se(linha<0 ou linha>3){
+        se(linha<0 ou linha>2){
           escreva("Digite um número válido.")
           u.aguarde(2000)
           limpa()
         }
-      }enquanto(linha<0 ou linha>3)
+      }enquanto(linha<0 ou linha>2)
 
       // LENDO COLUNA COM VERIFICAÇÃO DA VALIDADE DO NÚMERO
       faca{
-        escreva("\nEscolha uma coluna de   1 a  3: ")
+        escreva("\nEscolha uma coluna de   0 a  2: ")
         leia(coluna)
-        se(coluna<0 ou coluna>3){
+        se(coluna<0 ou coluna>2){
           escreva("Digite um número válido.")
           u.aguarde(2000)
           limpa()
         }
-      }enquanto(coluna<0 ou coluna>3)
+      }enquanto(coluna<0 ou coluna>2)
 
       // VERIFICA SE ESPAÇO ESTÁ DISPONÍVEL E SALVA A JOGADA
       limpa()
-      se(jogo[linha-1][coluna-1]!= '_'){
+      se(jogo[linha][coluna]!= '_'){
         escreva("Espaço já utilizado, tente outro.")
       } senao {
-        jogo[linha-1][coluna-1]='O'
+        jogo[linha][coluna]='O'
         escreva("Jogada registrada com sucesso!\n")
         mostrarJogo()
       }
-    }enquanto(jogo[linha-1][coluna-1]!='X' e jogo[linha-1][coluna-1]!='O')
+    }enquanto(jogo[linha][coluna]!='X' e jogo[linha][coluna]!='O')
     ultimo = 'O'
   }
 
@@ -184,7 +186,10 @@ programa {
       rodada = rodada +1
       limpa()
     }enquanto(rodada<=9 e eVencedor() == falso)
-
+    se(rodada==9 e eVencedor()==falso){
+      limpa()
+      escreva("Deu vela!\nNão houve vencedores.")
+    }
     escreva("FIM DE JOGO")
 
 
